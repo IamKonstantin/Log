@@ -17,7 +17,7 @@
 static LogObject* singleton = nullptr;  // TODO: Enable mulitple log objects
 
 
-LogBuffer::LogBuffer(const char* file_, int line_, char type_)  // TODO: write own __FILE__ macro to show relative path
+LogBuffer::LogBuffer(const char* file_, int line_, char type_)
   : std::stringstream()
   , file(file_)
   , line(line_)
