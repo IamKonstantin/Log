@@ -14,7 +14,7 @@
 #include "log_object.h"
 
 
-static LogObject* singleton = nullptr;  // TODO: Add dynamic library tests. Enable mulitple log objects
+static LogObject* singleton = nullptr;  // TODO: Enable mulitple log objects
 
 
 LogBuffer::LogBuffer(const char* file_, int line_, char type_)  // TODO: write own __FILE__ macro to show relative path
