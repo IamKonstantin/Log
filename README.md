@@ -1,10 +1,10 @@
-<<<<<<< HEAD
-Log
+=======
+# Log
 Message log in a multithreaded c ++ program 
 
 
-
-Usage
+=======
+# Usage
 1) Include log_object.h in main.cpp and initialize LogObject class in main()
 
 #include "log_object.h"
@@ -24,7 +24,3 @@ void some_function() {
     ERR << "Error text";
     OUT << "Info message";
 }
-=======
-# Log
-Message log in a multithreaded c ++ program 
->>>>>>> b562c685b952e6ec12928858c9807c2b99e63458
