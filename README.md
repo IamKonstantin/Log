@@ -1,5 +1,8 @@
 # Log
-Message log in a multithreaded c ++ program 
+Message logging in a multithreaded c++ program
+```text
+2021-03-14 19:39:39.400 (21758) ERR No route to host 127.0.0.1 in src/network/socket.cpp:45
+```
 
 # Usage
 1. Include `log_object.h` in `main.cpp` and initialize LogObject class in main().
