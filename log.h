@@ -13,8 +13,8 @@
  *  LOG << "Can't send message: " << exeption.what() << std::endl;
  *  OUT << "Waiting for listener..." << std::endl;
  *
- *  2020-08-26 20:17:08.921 (140596326537088) ERR Can't send message: endpoint is empty in sender.cpp:26
- *  2020-08-26 20:17:08.921 (140596309591808) OUT Waiting for listener... in listener.cpp:27
+ *  2020-08-26 20:17:08.921 (12345) ERR Can't send message: endpoint is empty in sender.cpp:26
+ *  2020-08-26 20:17:08.921 (12345) OUT Waiting for listener... in listener.cpp:27
  */
 #define ERR LogBuffer(__FILENAME__, __LINE__, 'E')
 #define OUT LogBuffer(__FILENAME__, __LINE__, 'O')
