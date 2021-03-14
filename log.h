@@ -17,10 +17,10 @@
 
 class LogBuffer : public std::stringstream {
 public:
-    LogBuffer(const char* file, int line, char type);
-    ~LogBuffer();
+  LogBuffer(const char* file, int line, char type);
+  ~LogBuffer();
 private:
-    const char* file;
-    const int line;
-    const char type;
+  const char* file;
+  const int line;
+  const char type;
 };

@@ -3,7 +3,7 @@
 #include "log.h"
 
 void bar() {
-    ERR << "foo bar";
+  ERR << "foo bar";
 }
 
 
@@ -15,14 +15,14 @@ void bar() {
 
 int main(int argc, char* argv[])
 {
-    LogObject l("test.log");
+  LogObject l("test.log");
 
-    std::thread foo(bar);
+  std::thread foo(bar);
 
-    ERR << "It's an error";
-    OUT << "It's fine";
+  ERR << "It's an error";
+  OUT << "It's fine";
 
-    foo.join();
+  foo.join();
 
-    return 0;
+  return 0;
 }
