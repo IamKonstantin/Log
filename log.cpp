@@ -17,26 +17,21 @@
 static LogObject* singleton = nullptr;  // TODO: Add dynamic library tests. Enable mulitple log objects
 
 
-std::string time_str()
-{
-  std::time_t t = std::time(nullptr);
-  char chars[128];
-
-  // TODO: use only chrono or only c functions
-  using namespace std::chrono;
-  auto ms = duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() % 1000llu;
-
-  std::strftime(chars, sizeof(chars), "%F %T.", std::localtime(&t));
-  return chars + std::to_string(ms);
-}
-
 LogBuffer::LogBuffer(const char* file_, int line_, char type_)  // TODO: write own __FILE__ macro to show relative path
   : std::stringstream()
   , file(file_)
   , line(line_)
   , type(type_)
 {
-  *this << time_str() << " (";
+  auto time_point = std::chrono::system_clock::now();
+  std::time_t ctime = std::chrono::system_clock::to_time_t(time_point);
+  char time_str[24];
+  using namespace std::chrono;
+  int ms = std::chrono::duration_cast< std::chrono::milliseconds >(time_point.time_since_epoch()).count() % 1000llu;
+  std::strftime(time_str, sizeof(time_str), "%F %T.", std::localtime(&ctime));
+  std::sprintf(time_str + 20, "%.3d", ms);
+
+  *this << time_str << " (";
 #ifdef __linux__
   *this << getpid();
 #else
