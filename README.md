@@ -2,7 +2,7 @@
 Message log in a multithreaded c ++ program 
 
 # Usage
-1. Include log_object.h in main.cpp and initialize LogObject class in main().
+1. Include `log_object.h` in `main.cpp` and initialize LogObject class in main().
 ```c++
 #include "log_object.h"
 
@@ -13,16 +13,16 @@ int main(int argc, char* argv[])
     return 0;
 }
 ```
-2. Link the log.cpp object file to the executable as main.cpp does. For example in cmake:
+2. Link the `log.cpp` object file to the executable as `main.cpp` does. For example in cmake:
 ```cmake
 add_executable(${PROJECT_NAME}
-  "main.cpp"
-  ...
   "log.h"
   "log_object.h"
-  "log.cpp")
+  "log.cpp"
+  ...
+  "main.cpp")
 ```
-3. Include "log.h" and use ERR and OUT macros in code
+3. Include `log.h` and use `ERR` and `OUT` macros in code
 ```c++
 #include "log.h"
 
