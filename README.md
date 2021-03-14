@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Log
 Message log in a multithreaded c ++ program 
 
@@ -23,3 +24,7 @@ void some_function() {
     ERR << "Error text";
     OUT << "Info message";
 }
+=======
+# Log
+Message log in a multithreaded c ++ program 
+>>>>>>> b562c685b952e6ec12928858c9807c2b99e63458
