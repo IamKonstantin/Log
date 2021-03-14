@@ -1,9 +1,6 @@
-=======
 # Log
 Message log in a multithreaded c ++ program 
 
-
-=======
 # Usage
 1) Include log_object.h in main.cpp and initialize LogObject class in main()
 
