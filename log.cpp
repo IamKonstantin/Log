@@ -49,13 +49,13 @@ LogBuffer::LogBuffer(const char* file_, int line_, char type_)
   , line(line_)
   , type(type_)
 {
-  auto time_point = std::chrono::system_clock::now();
-  std::time_t ctime = std::chrono::system_clock::to_time_t(time_point);
-  char time_str[24];
   using namespace std::chrono;
-  int ms = std::chrono::duration_cast< std::chrono::milliseconds >(time_point.time_since_epoch()).count() % 1000llu;
-  std::strftime(time_str, sizeof(time_str), "%F %T.", std::localtime(&ctime));
-  std::sprintf(time_str + 20, "%.3d", ms);
+  auto time_point = system_clock::now();
+  std::time_t ctime = system_clock::to_time_t(time_point);
+  char time_str[24];
+  int ms = duration_cast< milliseconds >(time_point.time_since_epoch()).count() % 1000llu;
+  std::strftime(time_str, sizeof(time_str), "%F %T.", std::localtime(&ctime));  // TODO: use localtime_s
+  std::sprintf(time_str + 20, "%.3d", ms);   // TODO: use sprintf_s
 
   *this << time_str << " (";
 #ifdef __linux__
@@ -68,30 +68,35 @@ LogBuffer::LogBuffer(const char* file_, int line_, char type_)
 
 LogBuffer::~LogBuffer()
 {
-  *this << " in " << file << ":" << line;
+  *this << " in " << file << ":" << line << std::endl;
   singleton->push(str(), type);
 }
 
 LogObject::LogObject(const std::string& filename)
     : file(filename)
 {
-  assert(!singleton && "Initialize LogObject in main()");
-  singleton = this;
+  log_set_log_object(this);
 }
 
 LogObject::~LogObject()
 {
-  singleton = nullptr;
+  log_reset_log_object();
 }
 
 void LogObject::push(const std::string& line, char type)
 {
-  std::lock_guard<std::mutex> guard(m);
-
-  // TODO: Can I move actions out of guard here?
-  file << line << std::endl;
+  file << line << std::flush;
   if (type == 'O')
-    std::cout << line << std::endl;
+    std::cout << line << std::flush;
   else
-    std::cerr << line << std::endl;
+    std::cerr << line << std::flush;
+}
+
+void log_set_log_object(LogObject* log_object) {
+  assert(!singleton && "Log object is already set");
+  singleton = log_object;
+}
+void log_reset_log_object() {
+  assert(singleton && "Nothing to reset");
+  singleton = nullptr;
 }

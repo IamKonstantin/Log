@@ -24,29 +24,31 @@ SOFTWARE.
 
 */
 
+/*
+
+Usage:
+ERR << "Can't send message: " << exeption.what() << std::endl;
+OUT << "Waiting for listener..." << std::endl;
+
+2020-08-26 20:17:08.921 (12345) ERR Can't send message: endpoint is empty in sender.cpp:26
+2020-08-26 20:17:08.921 (12345) OUT Waiting for listener... in listener.cpp:27
+
+ */
+
 #pragma once
 
 #include <sstream>
 
-#ifdef SOURCE_PATH_SIZE
-#  define __FILENAME__ (__FILE__ + SOURCE_PATH_SIZE)
+#ifdef LOG_SOURCE_PATH_SIZE
+#  define LOG_FILENAME (__FILE__ + LOG_SOURCE_PATH_SIZE)
 #else
-#  define __FILENAME__ __FILE__
+#  define LOG_FILENAME __FILE__
 #endif
-
-/*
- *  Usage:
- *  LOG << "Can't send message: " << exeption.what() << std::endl;
- *  OUT << "Waiting for listener..." << std::endl;
- *
- *  2020-08-26 20:17:08.921 (12345) ERR Can't send message: endpoint is empty in sender.cpp:26
- *  2020-08-26 20:17:08.921 (12345) OUT Waiting for listener... in listener.cpp:27
- */
-#define ERR LogBuffer(__FILENAME__, __LINE__, 'E')
-#define OUT LogBuffer(__FILENAME__, __LINE__, 'O')
+#define ERR LogBuffer(LOG_FILENAME, __LINE__, 'E')
+#define OUT LogBuffer(LOG_FILENAME, __LINE__, 'O')
 
 
-class LogBuffer : public std::stringstream {
+class LogBuffer : public std::stringstream {  // TODO: Use stack as buffer to able to log memory leaks
 public:
   LogBuffer(const char* file, int line, char type);
   ~LogBuffer();
