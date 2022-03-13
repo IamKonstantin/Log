@@ -34,7 +34,7 @@ class LogObject {
 public:
   LogObject(const std::string& filename);
   ~LogObject();
-  void LogObject::push(const std::string& line, char type);
+  void push(const std::string& line, char type);
 private:
   std::ofstream file;
 };

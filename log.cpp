@@ -54,14 +54,14 @@ LogBuffer::LogBuffer(const char* file_, int line_, char type_)
   std::time_t ctime = system_clock::to_time_t(time_point);
   char time_str[24];
   int ms = duration_cast< milliseconds >(time_point.time_since_epoch()).count() % 1000llu;
-  std::strftime(time_str, sizeof(time_str), "%F %T.", std::localtime(&ctime));
-  std::sprintf(time_str + 20, "%.3d", ms);
+  std::strftime(time_str, sizeof(time_str), "%F %T.", std::localtime(&ctime));  // TODO: use localtime_s
+  std::sprintf(time_str + 20, "%.3d", ms);   // TODO: use sprintf_s
 
   *this << time_str << " (";
 #ifdef __linux__
   *this << getpid();
 #else
-// #  error TODO: write Process ID which user see in system utilities on Windows
+#  error TODO: write Process ID which user see in system utilities on Windows
 #endif
   *this << ") " << (type == 'O' ? "OUT" : "ERR") << ' ';
 }
