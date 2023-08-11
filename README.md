@@ -54,8 +54,8 @@ YOUR_DECL_EXPORT void your_shared_lib_start(LogObject* log_object) {
     log_set_log_object(log_object);
     ...
 }
-YOUR_DECL_EXPORT void your_shared_lib_join(LogObject* log_object) {
+YOUR_DECL_EXPORT void your_shared_lib_join() {
     ...
-    log_set_log_object(log_object);
+    log_reset_log_object();
 }
 ```
